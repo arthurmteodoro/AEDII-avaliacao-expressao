@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "arvore.h"
 
 /*=================================================================================*/
@@ -12,7 +13,9 @@
 /*=================================================================================*/
 struct arv
 {
-	char valor;
+	int tipoDado;
+	char operador;
+	float operando;
 	struct arv* esq;
 	struct arv* dir;
 };
@@ -30,12 +33,24 @@ Arv criaArvoreVazia(void)
 /*CRIA ARVORE - FUNCAO QUE CRIA UMA ARVORE DADO SEU VALOR E SEUS FILHOS            */
 /*IN: CHAVE, SAE, SAD                                    OUT: PORNTEIRO PARA ARVORE*/
 /*=================================================================================*/
-Arv criaArvore(char valor, Arv esq, Arv dir)
+Arv criaArvore(char* valor, Arv esq, Arv dir)
 {
 	Arv raiz = (Arv) malloc(sizeof(struct arv));
-	raiz->valor = valor;
+
+	/*caso for float ou inteiro*/
+	if(isdigit(valor[0]))
+	{
+		raiz->operando = atof(valor);
+		raiz->tipoDado = 0;
+	}
+	else
+	{
+		raiz->operador = valor[0];
+		raiz->tipoDado = 1;
+	}
 	raiz->esq = esq;
 	raiz->dir = dir;
+
 	return raiz;
 }
 
@@ -67,4 +82,19 @@ void link(Arv raiz, Arv dir, Arv esq)
 		return;
 	}
 	return;
+}
+
+void caminha(Arv raiz)
+{
+	if(raiz == NULL)
+		return;
+	caminha(raiz->esq);
+	if(raiz->tipoDado == 0)
+	{
+		//printf("eh operando\n");
+		printf("%.2f ", raiz->operando);
+	}
+	else
+		printf("%c ", raiz->operador);
+	caminha(raiz->dir);
 }

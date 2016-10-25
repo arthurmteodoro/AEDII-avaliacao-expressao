@@ -3,16 +3,22 @@
 /* AUTOR: ARTHUR ALEXSANDER MARTINS TEODORO - 0022427             DATA: 25/10/2016 */
 /*=================================================================================*/
 
+#ifndef _PILHA_ARVORE_
+#define _PILHA_ARVORE_
+
 /*=================================================================================*/
 /*                                 TIPOS CRIADOS                                   */
 /*=================================================================================*/
 typedef struct pilhaArv *PilhaArv;
 
-/*=================================================================================*/
-/*                                OPERECOES CRIADOS                                */
-/*=================================================================================*/
+/*==================================================================================*/
+/*                               OPERACOES CRIADAS                                  */
+/*==================================================================================*/
 extern PilhaArv criaPilhaArv(void);
-extern void inserePilhaArv(PilhaArv pilha, Arv valor);
-extern Arv retiraPilhaArv(PilhaArv pilha);
-extern int vaziaPilhaArv(PilhaArv pilha);
-extern PilhaArv destroiPilhaArv(PilhaArv pilha);
+extern void inserePilhaArv(PilhaArv stack, Arv arvore);
+extern Arv retiraPilhaArv(PilhaArv stack);
+extern int vaziaPilhaArv(PilhaArv stack);
+extern Arv consultaPilhaArv(PilhaArv stack);
+extern void destroiPilhaArv(PilhaArv stack);
+
+#endif
