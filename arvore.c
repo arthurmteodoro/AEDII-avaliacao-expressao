@@ -33,20 +33,20 @@ Arv criaArvoreVazia(void)
 /*CRIA ARVORE - FUNCAO QUE CRIA UMA ARVORE DADO SEU VALOR E SEUS FILHOS            */
 /*IN: CHAVE, SAE, SAD                                    OUT: PORNTEIRO PARA ARVORE*/
 /*=================================================================================*/
-Arv criaArvore(char* valor, Arv esq, Arv dir)
+Arv criaArvore(char* valor, int tipo, Arv esq, Arv dir)
 {
 	Arv raiz = (Arv) malloc(sizeof(struct arv));
 
 	/*caso for float ou inteiro*/
-	if(isdigit(valor[0]))
+	if(tipo == OPERANDO)
 	{
 		raiz->operando = atof(valor);
-		raiz->tipoDado = 0;
+		raiz->tipoDado = OPERANDO;
 	}
 	else
 	{
 		raiz->operador = valor[0];
-		raiz->tipoDado = 1;
+		raiz->tipoDado = OPERADOR;
 	}
 	raiz->esq = esq;
 	raiz->dir = dir;
@@ -84,17 +84,82 @@ void link(Arv raiz, Arv dir, Arv esq)
 	return;
 }
 
+/*=================================================================================*/
+/*QUANTIDADE NOS ARVORE - FUNCAO QUE RETORNA A QUANTIDADE DE NOS DA ARVORE         */
+/*IN: NO RAIZ                                                OUT: QUANTIDADE DE NOS*/
+/*=================================================================================*/
+int quantidadeNosArvore(Arv raiz)
+{
+	if(raiz == NULL)
+		return 0;
+	return 1 + quantidadeNosArvore(raiz->esq) + quantidadeNosArvore(raiz->dir);
+}
+
+/*=================================================================================*/
+/*CAMINHA POS ORDEM - FUNCAO QUE CAMINHA NA ARVORE EM POS ORDEM                    */
+/*IN: NO RAIZ, VETOR DE SAIDA                                             OUT: VOID*/
+/*=================================================================================*/
+void caminhaPosOrdem(Arv raiz, char* vetor)
+{
+	if(raiz == NULL)
+		return;
+
+	char string[500];
+
+	caminhaPosOrdem(raiz->esq, vetor);
+	caminhaPosOrdem(raiz->dir, vetor);
+	if(raiz->tipoDado == OPERANDO)
+	{
+		/*imprime o valor em uma string para esta ser concatenada*/
+		sprintf(string, "%f ", raiz->operando);
+		strcat(vetor, string);
+	}
+	else
+	{
+		sprintf(string, "%c ", raiz->operador);
+		strcat(vetor, string);
+	}
+}
+
+/*=================================================================================*/
+/*CAMINHA PRE ORDEM - FUNCAO QUE CAMINHA NA ARVORE EM PRE ORDEM                    */
+/*IN: NO RAIZ, VETOR DE SAIDA                                             OUT: VOID*/
+/*=================================================================================*/
+void caminhaPreOrdem(Arv raiz, char* vetor)
+{
+	if(raiz == NULL)
+		return;
+
+	char string[500];
+
+	if(raiz->tipoDado == OPERANDO)
+	{
+		/*imprime o valor em uma string para esta ser concatenada*/
+		sprintf(string, "%f ", raiz->operando);
+		strcat(vetor, string);
+	}
+	else
+	{
+		sprintf(string, "%c ", raiz->operador);
+		strcat(vetor, string);
+	}
+	caminhaPreOrdem(raiz->esq, vetor);
+	caminhaPreOrdem(raiz->dir, vetor);
+}
+
 void caminha(Arv raiz)
 {
 	if(raiz == NULL)
 		return;
+	printf("(");
 	caminha(raiz->esq);
-	if(raiz->tipoDado == 0)
+	if(raiz->tipoDado == OPERANDO)
 	{
 		//printf("eh operando\n");
-		printf("%.2f ", raiz->operando);
+		printf("%.2f", raiz->operando);
 	}
 	else
-		printf("%c ", raiz->operador);
+		printf("%c", raiz->operador);
 	caminha(raiz->dir);
+	printf(")");
 }
