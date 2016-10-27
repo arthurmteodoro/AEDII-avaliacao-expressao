@@ -23,6 +23,6 @@ extern void link(Arv raiz, Arv dir, Arv esq);
 extern int quantidadeNosArvore(Arv raiz);
 extern void caminhaPosOrdem(Arv raiz, char* vetor);
 extern void caminhaPreOrdem(Arv raiz, char* vetor);
-void caminha(Arv raiz);
+extern void caminhaInOrdem(Arv raiz, char* vetor);
 
 #endif

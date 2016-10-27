@@ -5,25 +5,113 @@
 #include "pilhaArv.h"
 #include "expressao.h"
 
-int main(void)
+int main(int argc, char const *argv[])
 {
 
-	char entrada[80] = "5 1 2 + 4 * + 3 -";
+	/*Variaveis usadas*/
+	Arv arvore;
+	char expressao[1000] = "";
+	char caminhamento[2000] = "";
+	float resultado;
+	FILE* entrada = stdin;
+	FILE* saida = stdout;
+	/*Flags para dizerem se usara ou nao o teclado, 0 nao usar*/
+	int teclado = 1;
 
-	Arv raiz = geraArvore(entrada);
+	/*============ MANIPULACAO DOS ARQUIVOS ===================*/
+	/*Caso nao passar nada por parametro, sera usada entrada e saida padrao - teclado e monitor*/
+	if(argc == 1)
+	{
+		entrada = stdin;
+		saida = stdout;
+	}
+	else
+	{
+		/*entrada e saida por aquivos*/
+		if(argc == 5)
+		{
+			entrada = fopen(argv[2], "rt");
+			saida = fopen(argv[4], "wt");
+			teclado = 0;
 
-	char isso[300] = "";
+			if(entrada == NULL || saida == NULL)
+			{
+				fprintf(stderr, "Arquivos nao existentes\n");
+				return 1;
+			}
 
-	caminhaPreOrdem(raiz, isso);
-	printf("%s\n", isso);
+		}
+		else
+		{
 
-	caminha(raiz);
-	printf("\n");
+			if(!strcmp(argv[1], "-i"))
+			{
+				entrada = fopen(argv[2], "rt");
+				teclado = 0;
+				
+				if(entrada == NULL)
+				{
+					fprintf(stderr, "Arquivos nao existentes\n");
+					return 1;
+				}
 
-	float resultado = calculaExpressao(raiz);
-	printf("O resultado eh %f\n", resultado);
+			}
 
-	destroiArvore(raiz);
+			if(!strcmp(argv[1], "-o"))
+			{
+				saida = fopen(argv[2], "wt");
+				
+				if(saida == NULL)
+				{
+					fprintf(stderr, "Arquivos nao existentes\n");
+					return 1;
+				}
+
+			}
+		}
+	}
+	/*============ FIM DA MANIPULACAO DOS ARQUIVOS ===================*/
+
+	/*entrada por teclado e saida por monitor ou entrada teclado e saida arquivo*/
+	if(teclado == 1)
+	{
+		printf("Digite a expressao na notacao polonesa inversa:\n");
+		fgets(expressao, 1000, entrada);
+		expressao[strlen(expressao)-1] = '\0';
+
+		arvore = geraExpressao(expressao);
+		resultado = calculaExpressao(arvore);
+		fprintf(saida, "O resultado da expressao eh %f\n", resultado);
+
+		caminhaPreOrdem(arvore, caminhamento);
+		fprintf(saida, "A expressao em notacao polonesa eh %s\n", caminhamento);
+		strcpy(caminhamento, "");
+		caminhaInOrdem(arvore, caminhamento);
+		fprintf(saida ,"A expressao em notacao infixa eh %s\n", caminhamento);
+		destroiArvore(arvore);
+	}
+
+	if(teclado == 0)
+	{
+		while(fgets(expressao, 1000, entrada) != NULL)
+		{
+			if(expressao[strlen(expressao)-1] == '\n')
+				expressao[strlen(expressao)-1] = '\0';
+
+			fprintf(saida, "Analisando a expressao %s\n", expressao);
+			arvore = geraExpressao(expressao);
+			resultado = calculaExpressao(arvore);
+			fprintf(saida, "O resultado da expressao eh %f\n", resultado);
+
+			caminhaPreOrdem(arvore, caminhamento);
+			fprintf(saida, "A expressao em notacao polonesa eh %s\n", caminhamento);
+			strcpy(caminhamento, "");
+			caminhaInOrdem(arvore, caminhamento);
+			fprintf(saida ,"A expressao em notacao infixa eh %s\n\n", caminhamento);
+			destroiArvore(arvore);
+			strcpy(caminhamento, "");
+		}
+	}
 
 	return 0;
 }

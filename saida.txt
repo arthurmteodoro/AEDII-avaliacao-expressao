@@ -1,0 +1,40 @@
+Analisando a expressao 5 5 +
+O resultado da expressao eh 10.000000
+A expressao em notacao polonesa eh + 5.000000 5.000000 
+A expressao em notacao infixa eh ( ( 5.000000 ) + ( 5.000000 ) ) 
+
+Analisando a expressao 10 10 -
+O resultado da expressao eh 0.000000
+A expressao em notacao polonesa eh - 10.000000 10.000000 
+A expressao em notacao infixa eh ( ( 10.000000 ) - ( 10.000000 ) ) 
+
+Analisando a expressao 3 6 1 * -
+O resultado da expressao eh -3.000000
+A expressao em notacao polonesa eh - 3.000000 * 6.000000 1.000000 
+A expressao em notacao infixa eh ( ( 3.000000 ) - ( ( 6.000000 ) * ( 1.000000 ) ) ) 
+
+Analisando a expressao 10 3 6 - *
+O resultado da expressao eh -30.000000
+A expressao em notacao polonesa eh * 10.000000 - 3.000000 6.000000 
+A expressao em notacao infixa eh ( ( 10.000000 ) * ( ( 3.000000 ) - ( 6.000000 ) ) ) 
+
+Analisando a expressao 2 1 - 4 3 + /
+O resultado da expressao eh 0.142857
+A expressao em notacao polonesa eh / - 2.000000 1.000000 + 4.000000 3.000000 
+A expressao em notacao infixa eh ( ( ( 2.000000 ) - ( 1.000000 ) ) / ( ( 4.000000 ) + ( 3.000000 ) ) ) 
+
+Analisando a expressao 6 4 - 7 2 + / 4 *
+O resultado da expressao eh 0.888889
+A expressao em notacao polonesa eh * / - 6.000000 4.000000 + 7.000000 2.000000 4.000000 
+A expressao em notacao infixa eh ( ( ( ( 6.000000 ) - ( 4.000000 ) ) / ( ( 7.000000 ) + ( 2.000000 ) ) ) * ( 4.000000 ) ) 
+
+Analisando a expressao 7 2 - 5 +
+O resultado da expressao eh 10.000000
+A expressao em notacao polonesa eh + - 7.000000 2.000000 5.000000 
+A expressao em notacao infixa eh ( ( ( 7.000000 ) - ( 2.000000 ) ) + ( 5.000000 ) ) 
+
+Analisando a expressao 5 3 + 2 1 - /
+O resultado da expressao eh 8.000000
+A expressao em notacao polonesa eh / + 5.000000 3.000000 - 2.000000 1.000000 
+A expressao em notacao infixa eh ( ( ( 5.000000 ) + ( 3.000000 ) ) / ( ( 2.000000 ) - ( 1.000000 ) ) ) 
+

@@ -18,7 +18,7 @@
 /*GERA ARVORE - FUNCAO RESPONSAVEL POR GERAR A ARVORE                              */
 /*IN: EXPRESSAO                                          OUT: PORNTEIRO PARA ARVORE*/
 /*=================================================================================*/
-Arv geraArvore(char* expressao)
+Arv geraExpressao(char* expressao)
 {
 	if(expressao == NULL)
 		return NULL;

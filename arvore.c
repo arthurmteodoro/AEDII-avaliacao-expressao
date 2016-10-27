@@ -147,19 +147,30 @@ void caminhaPreOrdem(Arv raiz, char* vetor)
 	caminhaPreOrdem(raiz->dir, vetor);
 }
 
-void caminha(Arv raiz)
+/*=================================================================================*/
+/*CAMINHA PRE ORDEM - FUNCAO QUE CAMINHA NA ARVORE EM PRE ORDEM                    */
+/*IN: NO RAIZ, VETOR DE SAIDA                                             OUT: VOID*/
+/*=================================================================================*/
+void caminhaInOrdem(Arv raiz, char* vetor)
 {
 	if(raiz == NULL)
 		return;
-	printf("(");
-	caminha(raiz->esq);
+
+	char string[500];
+
+	strcat(vetor, "( ");
+	caminhaInOrdem(raiz->esq, vetor);
 	if(raiz->tipoDado == OPERANDO)
 	{
-		//printf("eh operando\n");
-		printf("%.2f", raiz->operando);
+		/*imprime o valor em uma string para esta ser concatenada*/
+		sprintf(string, "%f ", raiz->operando);
+		strcat(vetor, string);
 	}
 	else
-		printf("%c", raiz->operador);
-	caminha(raiz->dir);
-	printf(")");
+	{
+		sprintf(string, "%c ", raiz->operador);
+		strcat(vetor, string);
+	}
+	caminhaInOrdem(raiz->dir, vetor);
+	strcat(vetor, ") ");
 }
