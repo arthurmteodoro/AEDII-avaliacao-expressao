@@ -75,7 +75,7 @@ float calculaExpressao(Arv arvore)
 		/*Se nao for operando*/
 		if(strcmp(token, "+") && strcmp(token, "-") && strcmp(token, "*") && strcmp(token, "/"))
 		{
-			inserePilha(stack, atof(token));;
+			inserePilha(stack, atof(token));
 		}
 		else
 		{

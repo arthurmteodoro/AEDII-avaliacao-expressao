@@ -20,6 +20,13 @@ int main(int argc, char const *argv[])
 
 	/*============ MANIPULACAO DOS ARQUIVOS ===================*/
 	/*Caso nao passar nada por parametro, sera usada entrada e saida padrao - teclado e monitor*/
+  if(argc == 2 && !strcmp(argv[1],"-h"))
+  {
+    printf("Uso do sistema:\n");
+    printf("./main.out -i <nome_arquivo_entrada> -o <nome_arquivo_saida>\n");
+    printf("As diretivas -i e -o pode ser omitida\n");
+    return 1;
+  }
 	if(argc == 1)
 	{
 		entrada = stdin;
